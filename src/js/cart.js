@@ -50,20 +50,21 @@ function renderCartContents() {
 
 function cartItemTemplate(item, index) {
   const price = Number(item.FinalPrice) || 0;
+  const imageUrl = item.Images?.PrimaryMedium || item.Image || "";
   const newItem = `<li class="cart-card divider">
   <a href="#" class="cart-card__image">
     <img
-      src="${item.Image}"
-      alt="${item.Name}"
+      src="${imageUrl}"
+      alt="${item.Name || item.NameWithoutBrand}"
     />
   </a>
   <a href="#">
-    <h2 class="card__name">${item.Name}</h2>
+    <h2 class="card__name">${item.Name || item.NameWithoutBrand}</h2>
   </a>
   <p class="cart-card__color">${(item.Colors && item.Colors[0] && item.Colors[0].ColorName) || ''}</p>
   <p class="cart-card__quantity">qty: 1</p>
   <p class="cart-card__price">$${price.toFixed(2)}</p>
-  <button class="cart-card__remove" data-index="${index}" aria-label="Remove ${item.Name} from cart">Remove</button>
+  <button class="cart-card__remove" data-index="${index}" aria-label="Remove ${item.Name || item.NameWithoutBrand} from cart">Remove</button>
 </li>`;
 
   return newItem;
